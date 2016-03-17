@@ -1,0 +1,211 @@
+upload
+sjc.module
+dashboard.inc
+style.css
+import all users
+import dashboard layout
+add panel node for dashboard
+create login destination rules
+
+for change password
+add existing page - user_edit_page
+enable it from list
+add variant - login layout + css class
+select existing page.
+
+for change password link
+add link with token in user menu
+hide the timezone
+/admin/config/regional/settings
+
+for print css
+add print css and style.css
+add info file
+add block for logo
+-----------------
+hrms - reimbursment upload flow
+
+commit expense module
+commit libraries
+commit pdf module
+commit expensepdf folder in files/
+export content type
+create field collection fields
+assign field level permission in content type field
+import expense request view
+create trigger
+create workflow
+import workflow state view
+change id
+hide workflow in display mode in content type
+make menu link with permission
+
+
+
+for Cap Rate/Equity, 
+do we need to use Display_Cap_Rate__c, EquityPercentZCF__c, Display_Equity__c fields same as property search?
+and also for Cap Rate/Equity in offer, we are not sure which fields(Offer__c) are going to map with listing__c object, can you please suggest which fields do we need to use? 
+
+
+
+(minimum 21,551,700; maximum 32,758,600)
+I clicked “submit"
+estanton@holmwoodcapital.com
+
+http://codex.wordpress.org/Hardening_WordPress
+
+
+#167 – No comment has been added. Need an update in JIRA [gaurav]: Will be done by tomorrow.
+#169 – This was noted as complete in the spreadsheet but nothing has been updated in JIRA [gaurav]: Status(fixed) updated in jira
+#171 - This was noted as complete in the spreadsheet but nothing has been updated in JIRA [gaurav]: Status(fixed) updated in jira
+#165 – Amanda N provided additional information last week. Please address [gaurav]: Status(fixed) updated in jira
+#150 - Amanda N provided additional information last week. Please address [gaurav]: It’s a change. There were no such fields given earlier.
+#170 – Amanda K provided additional information last week. Please address [gaurav]: It’s a change. There were no such fields given earlier.
+#168 - Amanda K provided additional information last week. Please address [gaurav]: Status(fixed) updated in jira
+#161 – 2 out of the 3 questions have feedback entered into JIRA. Please address [gaurav]: updated jira staus. date format has been updated.
+#155 – Waiting on Gaurav to confirm [gaurav]: Status(fixed) updated in jira
+#153 – Update needed in JIRA [gaurav]: It’s a change. There were no such fields given earlier.
+#146 - Amanda K provided additional information last week. Please address [gaurav]: Status(fixed) updated in jira
+#148 – Update needed in JIRA [gaurav]: Status(fixed) updated in jira
+#172 – New issue added on Friday. Please provide an update [gaurav]: will have a look at it tomorrow.
+
+
+
+
+bracha365@aol.com
+bracha365@aol.com
+
+
+
+
+Salesforce Drupal Integration
+
+The Salesforce Suite of Drupal modules is an easy way to connect Drupal Application to Salesforce. This module supports integration with Salesforce by synchronizing Drupal entities like users, nodes, files with Salesforce objects.
+
+If you want to perform custom operations with salesforce then below is the custom module which provide integration between Salesforce Objects and Drupal Application.
+
+Here are the steps,
+
+STEP1: Pre-requisites -  In Salesforce.com
+
+1. First you need a Salesforce account. you can create it from Here (https://developer.salesforce.com/signup).
+2. You will need to create a application for authorization in salesforce. To create Application, click on  Setup (right uper menu) > Create (left side - built menu) > Apps then  create a new Connected App.
+3. Set the callback URL to: https:///salesforce/oauth_callback (SSL is mandatory)
+4. Select at least "Perform requests on your behalf at any time" for OAuth Scope. This will use for other scopes in your application.
+
+STEP2: Pre-requisites - in your Drupal site
+
+1. Your site needs to be SSL enabled to authorize the remote application using OAUTH.
+2. Download salesforce partner libraries(attached partner libraries) and put it in sites/all/libraries/salesforce folder.
+3. Create custom module, give a name whatever you want. 
+4. I've created "sf module" with the file names - sf.info, sf.module, sf.salesforceConn.inc.
+5. sjc.info file contains module detection code.
+	name = sf
+	description = custom module for salesforce integration
+	core = 7.x
+	version = "7.x-1.3"
+	project = "salesforce"
+	
+6. sf.salesforceConn.inc is the important file which calls the salesforce libraries for login authentication access and fetching resulting data from salesforce object. i've also created salesforce username, password and security token from admin driven (this all are necessary to provide connectivity between salesforce app and your drupal application).
+
+	$USERNAME = variable_get('salesforce_user_name', FALSE);
+	$PASSWORD = variable_get('salesforce_password', FALSE);
+	$SECURITY_TOKEN = variable_get('security_token', FALSE); 
+
+	/**
+	 * calls libraries for authentication.
+	 */
+	function sf_salesforce_Login(){		
+		$salsesforce_libraries_url = libraries_get_path('salesforce');
+		require_once ($salsesforce_libraries_url.'/soapclient/SforcePartnerClient.php');	
+		$mySforceConnection = new SforcePartnerClient();
+		$mySforceConnection->createConnection($salsesforce_libraries_url."/soapclient/partner.wsdl.xml");
+		$mySforceConnection->login($USERNAME, $PASSWORD.$SECURITY_TOKEN);
+		return $mySforceConnection;
+	}
+	
+	/**
+	 * fetch data from salesforce.
+	 */
+	function sf_fetch_result($query, $mySforceConnection){
+		$response = $mySforceConnection->query($query);	
+		foreach($response as $record){
+			$result[] = new SObject($record);
+		}
+		if(!isset($result)){
+			$result = Null;
+		}
+		return $result;
+	}
+	
+7. The sf.module contains admin configuration for salesforce authentication and other salesforce object related activities.
+
+	/**
+	 * configuration form for salesforce username, passworda and security token.
+	 */
+	function sf_admin() {
+		$form = array();
+		$form['salesforce'] = array(
+			'#type' => 'fieldset',
+			'#title' => t('Salesforce configurations'),
+			'#weight' => 1,
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE
+		);
+		$form['salesforce']['salesforce_user_name'] = array(
+			'#type' => 'textfield',
+			'#title' => t('User Name'),
+			'#default_value' => variable_get('salesforce_user_name'),
+			'#description' => t("Enter Salesforce User name."),
+		);
+		$form['salesforce']['salesforce_password'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Password'),
+			'#default_value' => variable_get('salesforce_password'),
+			'#description' => t("Enter Salesforce Password."),
+		);
+		$form['salesforce']['security_token'] = array(
+			'#type' => 'textfield',
+			'#title' => t('SECURITY TOKEN'),
+			'#default_value' => variable_get('security_token'),
+			'#description' => t("Enter Salesforce Redirect Url."),
+		);
+		return system_settings_form($form);
+	}
+	
+	/**
+	 * configuration form for admin salesforce menu link.
+	 */
+	function sf_menu() {
+		$items = array();
+		$items['admin/settings/sf'] = array(
+			'title' => 'SF Configurations',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('sf_admin'),
+			'access arguments' => array('access administration pages'),
+			'type' => MENU_NORMAL_ITEM,
+		);
+		return $items;
+	}
+	
+	/**
+	 * fetching data of contact object from salesforce.
+	 */
+	function sf_contact_data() {
+		// authenticate from salesforce
+		$mySforceConnection = sf_salesforce_Login();
+		// select query to get data
+		$query_fetch_contact_data = "SELECT Name,Email,Phone,Profile_Pic__c FROM Contact";
+		// fetch data which coming from salesforce
+		$contact_result_data = sf_fetch_result($query_fetch_contact_data, $mySforceConnection);
+		if(isset($contact_result_data)){
+			foreach($contact_result_data as $contact_response) {
+				$contact_record = $contact_response->fields;
+				$contact_name = $contact_record->Name;
+				$contact_email = $contact_record->Email;
+				$contact_phone = $contact_record->Phone;
+				$contact_profile_pic = $contact_record->Profile_Pic__c;
+			}
+		}
+	}
+
