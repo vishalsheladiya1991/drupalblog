@@ -1,83 +1,3 @@
-upload
-sjc.module
-dashboard.inc
-style.css
-import all users
-import dashboard layout
-add panel node for dashboard
-create login destination rules
-
-for change password
-add existing page - user_edit_page
-enable it from list
-add variant - login layout + css class
-select existing page.
-
-for change password link
-add link with token in user menu
-hide the timezone
-/admin/config/regional/settings
-
-for print css
-add print css and style.css
-add info file
-add block for logo
------------------
-hrms - reimbursment upload flow
-
-commit expense module
-commit libraries
-commit pdf module
-commit expensepdf folder in files/
-export content type
-create field collection fields
-assign field level permission in content type field
-import expense request view
-create trigger
-create workflow
-import workflow state view
-change id
-hide workflow in display mode in content type
-make menu link with permission
-
-
-
-for Cap Rate/Equity, 
-do we need to use Display_Cap_Rate__c, EquityPercentZCF__c, Display_Equity__c fields same as property search?
-and also for Cap Rate/Equity in offer, we are not sure which fields(Offer__c) are going to map with listing__c object, can you please suggest which fields do we need to use? 
-
-
-
-(minimum 21,551,700; maximum 32,758,600)
-I clicked “submit"
-estanton@holmwoodcapital.com
-
-http://codex.wordpress.org/Hardening_WordPress
-
-
-#167 – No comment has been added. Need an update in JIRA [gaurav]: Will be done by tomorrow.
-#169 – This was noted as complete in the spreadsheet but nothing has been updated in JIRA [gaurav]: Status(fixed) updated in jira
-#171 - This was noted as complete in the spreadsheet but nothing has been updated in JIRA [gaurav]: Status(fixed) updated in jira
-#165 – Amanda N provided additional information last week. Please address [gaurav]: Status(fixed) updated in jira
-#150 - Amanda N provided additional information last week. Please address [gaurav]: It’s a change. There were no such fields given earlier.
-#170 – Amanda K provided additional information last week. Please address [gaurav]: It’s a change. There were no such fields given earlier.
-#168 - Amanda K provided additional information last week. Please address [gaurav]: Status(fixed) updated in jira
-#161 – 2 out of the 3 questions have feedback entered into JIRA. Please address [gaurav]: updated jira staus. date format has been updated.
-#155 – Waiting on Gaurav to confirm [gaurav]: Status(fixed) updated in jira
-#153 – Update needed in JIRA [gaurav]: It’s a change. There were no such fields given earlier.
-#146 - Amanda K provided additional information last week. Please address [gaurav]: Status(fixed) updated in jira
-#148 – Update needed in JIRA [gaurav]: Status(fixed) updated in jira
-#172 – New issue added on Friday. Please provide an update [gaurav]: will have a look at it tomorrow.
-
-
-
-
-bracha365@aol.com
-bracha365@aol.com
-
-
-
-
 Salesforce Drupal Integration
 
 The Salesforce Suite of Drupal modules is an easy way to connect Drupal Application to Salesforce. This module supports integration with Salesforce by synchronizing Drupal entities like users, nodes, files with Salesforce objects.
@@ -100,6 +20,7 @@ STEP2: Pre-requisites - in your Drupal site
 3. Create custom module, give a name whatever you want. 
 4. I've created "sf module" with the file names - sf.info, sf.module, sf.salesforceConn.inc.
 5. sjc.info file contains module detection code.
+
 	name = sf
 	description = custom module for salesforce integration
 	core = 7.x
@@ -208,4 +129,3 @@ STEP2: Pre-requisites - in your Drupal site
 			}
 		}
 	}
-
